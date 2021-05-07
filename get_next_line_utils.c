@@ -13,9 +13,22 @@ size_t	ft_strlen(const char *str)
 	return (count);
 }
 
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s)
+	{
+		if ((char)c == *s)
+			return ((char *)s);
+		s++;
+	}
+	if (*s == '\0' && c == '\0')
+		return ((char *)s);
+	return (NULL);
+}
+
 void	*ft_newstr(size_t count)
 {
-	void	*ptr;
+	void			*ptr;
 	unsigned char	*help;
 
 	if (!count)
