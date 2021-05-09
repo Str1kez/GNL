@@ -53,11 +53,12 @@ static int check(size_t read, char **res, char **line)
 		return (0);
 	}
 	is_endl = ft_strchr(*res, '\n');
-	if (is_endl)
+	if (is_endl && read > 0)
 	{
 		temp = ft_strdup_endl(*res, is_endl);
-		str_clean(res);
 		*line = temp;
+		// ? Не теряется ли здесь is_endl?
+		str_clean(res);
 		*res = ft_strdup(is_endl + 1);
 		return (1);
 	}
@@ -76,6 +77,7 @@ int get_next_line(int fd, char **line)
 		return (-1);
 	if (!res)
 		res = ft_memset((char *)malloc(1), 0, 1);
+	r = 1;
 	if (!ft_strchr(res, '\n'))
 	{
 		r = read(fd, buf, BUFFER_SIZE);
@@ -90,8 +92,6 @@ int get_next_line(int fd, char **line)
 			r = read(fd, buf, BUFFER_SIZE);
 		}
 	}
-	else
-		r = 1;
 	return (check(r, &res, line));
 }
 
