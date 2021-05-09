@@ -72,7 +72,7 @@ int	get_next_line(int fd, char **line)
 	static char	*res = NULL;
 	char		*temp;
 
-	if (fd < 0 || fd > 999 || !line || BUFFER_SIZE < 1)
+	if (read(fd, buf, 0) < 0 || !line || BUFFER_SIZE < 1)
 		return (-1);
 	if (!res)
 		res = ft_memset((char *)malloc(1), 0, 1);

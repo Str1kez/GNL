@@ -69,10 +69,10 @@ int	get_next_line(int fd, char **line)
 {
 	size_t		r;
 	char		buf[BUFFER_SIZE + 1];
-	static char	*res[1024];
+	static char	*res[10240];
 	char		*temp;
 
-	if (fd < 0 || fd > 999 || !line || BUFFER_SIZE < 1)
+	if (read(fd, buf, 0) < 0 || !line || BUFFER_SIZE < 1)
 		return (-1);
 	if (!res[fd])
 		res[fd] = ft_memset((char *)malloc(1), 0, 1);
