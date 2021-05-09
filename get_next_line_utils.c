@@ -26,26 +26,17 @@ char *ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-void *ft_newstr(size_t count)
+void *ft_memset(void *b, int c, size_t len)
 {
-	void *ptr;
 	unsigned char *help;
 
-	if (!count)
-		count = 1;
-	ptr = malloc(count);
-	help = (unsigned char *)ptr;
-	if (ptr)
+	help = (unsigned char *)b;
+	while (len)
 	{
-		while (count)
-		{
-			*help = 0;
-			help++;
-			count--;
-		}
-		return (ptr);
+		*help++ = (unsigned char)c;
+		len--;
 	}
-	return (NULL);
+	return (b);
 }
 
 char *ft_strjoin(char const *s1, char const *s2)
@@ -77,15 +68,20 @@ char *ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
-char *ft_strdup(const char *s1)
+char *ft_strdup_endl(const char *s1, const char *s2)
 {
 	char *res;
+	char *help;
 	size_t s1_len;
 	size_t iter;
 
 	s1_len = 0;
-	while (s1[s1_len] != '\n' && s1[s1_len] != '\0')
+	help = (char *)s1;
+	while (help != s2)
+	{
 		s1_len++;
+		help++;
+	}
 	res = (char *)malloc(s1_len + 1);
 	if (res)
 	{
