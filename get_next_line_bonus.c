@@ -9,7 +9,7 @@
 # define BUFFER_SIZE 1
 #endif
 
-char	*ft_strdup(const char *s1)
+static char	*ft_strdup(const char *s1)
 {
 	char	*res;
 	size_t	s1_len;
