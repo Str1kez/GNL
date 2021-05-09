@@ -1,8 +1,8 @@
 #include <stdlib.h>
 
-size_t ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
-	size_t count;
+	size_t	count;
 
 	count = 0;
 	while (*str)
@@ -13,7 +13,7 @@ size_t ft_strlen(const char *str)
 	return (count);
 }
 
-char *ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	while (*s)
 	{
@@ -26,9 +26,9 @@ char *ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-void *ft_memset(void *b, int c, size_t len)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	unsigned char *help;
+	unsigned char	*help;
 
 	help = (unsigned char *)b;
 	while (len)
@@ -39,12 +39,12 @@ void *ft_memset(void *b, int c, size_t len)
 	return (b);
 }
 
-char *ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t s1_len;
-	size_t s2_len;
-	size_t iter;
-	char *res;
+	size_t	s1_len;
+	size_t	s2_len;
+	size_t	iter;
+	char	*res;
 
 	if (!s1 || !s2)
 		return (NULL);
@@ -68,12 +68,12 @@ char *ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
-char *ft_strdup_endl(const char *s1, const char *s2)
+char	*ft_strdup_endl(const char *s1, const char *s2)
 {
-	char *res;
-	char *help;
-	size_t s1_len;
-	size_t iter;
+	char	*res;
+	char	*help;
+	size_t	s1_len;
+	size_t	iter;
 
 	s1_len = 0;
 	help = (char *)s1;

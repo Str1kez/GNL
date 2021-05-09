@@ -1,20 +1,19 @@
-#include <stdio.h>
-#include <fcntl.h>	   /* open() and O_XXX flags */
-#include <sys/stat.h>  /* S_IXXX flags */
-#include <sys/types.h> /* mode_t */
+// #include <stdio.h>
+// #include <fcntl.h>	   /* open() and O_XXX flags */
+// #include <sys/stat.h>  /* S_IXXX flags */
+// #include <sys/types.h> /* mode_t */
 #include <unistd.h>	   /* close() */
-#include <stdlib.h>
 #include "get_next_line.h"
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 1
+# define BUFFER_SIZE 1
 #endif
 
-char *ft_strdup(const char *s1)
+char	*ft_strdup(const char *s1)
 {
-	char *res;
-	size_t s1_len;
-	size_t iter;
+	char	*res;
+	size_t	s1_len;
+	size_t	iter;
 
 	s1_len = ft_strlen(s1);
 	res = (char *)malloc(s1_len + 1);
@@ -32,7 +31,7 @@ char *ft_strdup(const char *s1)
 	return (NULL);
 }
 
-static void str_clean(char **str)
+static void	str_clean(char **str)
 {
 	if (*str)
 	{
@@ -41,10 +40,10 @@ static void str_clean(char **str)
 	}
 }
 
-static int check(size_t read, char **res, char **line)
+static int	check(size_t read, char **res, char **line)
 {
-	char *temp;
-	char *is_endl;
+	char	*temp;
+	char	*is_endl;
 
 	if (read == 0)
 	{
@@ -57,23 +56,23 @@ static int check(size_t read, char **res, char **line)
 	{
 		temp = ft_strdup_endl(*res, is_endl);
 		*line = temp;
-		// ? Не теряется ли здесь is_endl?
+		is_endl = ft_strdup(is_endl + 1);
 		str_clean(res);
-		*res = ft_strdup(is_endl + 1);
+		*res = is_endl;
 		return (1);
 	}
 	str_clean(res);
 	return (-1);
 }
 
-int get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
-	size_t r;
-	char buf[BUFFER_SIZE + 1];
-	static char *res = NULL;
-	char *temp;
+	size_t		r;
+	char		buf[BUFFER_SIZE + 1];
+	static char	*res = NULL;
+	char		*temp;
 
-	if (fd < 0 || !line || !BUFFER_SIZE)
+	if (fd < 0 || fd > 999 || !line || BUFFER_SIZE < 1)
 		return (-1);
 	if (!res)
 		res = ft_memset((char *)malloc(1), 0, 1);
@@ -88,34 +87,34 @@ int get_next_line(int fd, char **line)
 			str_clean(&res);
 			res = temp;
 			if (ft_strchr(res, '\n'))
-				break;
+				break ;
 			r = read(fd, buf, BUFFER_SIZE);
 		}
 	}
 	return (check(r, &res, line));
 }
 
-int main()
-{
-	char *line;
-	int fd = open("test.txt", O_RDONLY);
-	if (fd < 0)
-		exit(1);
-	// printf("%d\n", get_next_line(fd, &line));
-	get_next_line(fd, &line);
-	printf("%s\n", line);
-	str_clean(&line);
-	// printf("%d\n", get_next_line(fd, &line));
-	get_next_line(fd, &line);
-	printf("%s\n", line);
-	str_clean(&line);
-	// printf("%d\n", get_next_line(fd, &line));
-	get_next_line(fd, &line);
-	printf("%s\n", line);
-	str_clean(&line);
-	get_next_line(fd, &line);
-	printf("%s\n", line);
-	str_clean(&line);
-	close(fd);
-	return (0);
-}
+// int main()
+// {
+// 	char *line;
+// 	int fd = open("test.txt", O_RDONLY);
+// 	if (fd < 0)
+// 		exit(1);
+// 	// printf("%d\n", get_next_line(fd, &line));
+// 	get_next_line(fd, &line);
+// 	printf("%s\n", line);
+// 	str_clean(&line);
+// 	// printf("%d\n", get_next_line(fd, &line));
+// 	get_next_line(fd, &line);
+// 	printf("%s\n", line);
+// 	str_clean(&line);
+// 	// printf("%d\n", get_next_line(fd, &line));
+// 	get_next_line(fd, &line);
+// 	printf("%s\n", line);
+// 	str_clean(&line);
+// 	get_next_line(fd, &line);
+// 	printf("%s", line);
+// 	str_clean(&line);
+// 	close(fd);
+// 	return (0);
+// }
